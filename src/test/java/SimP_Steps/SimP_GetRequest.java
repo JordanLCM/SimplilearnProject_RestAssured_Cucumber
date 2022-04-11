@@ -12,17 +12,14 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.response.Response;
 
 public class SimP_GetRequest {
-
 	RequestSpecification Request;
 	Response GetResponse;
 	String SubPath = "";
 	Logger Logger = LogManager.getLogger(SimP_GetRequest.class.getSimpleName());
-
 	@io.cucumber.java.Before
 	public void Configure() {
 		PropertyConfigurator.configure("log4j.properties");
 	}
-
 	@Given("A base URL {string}")
 	public void a_base_url(String URL001) {
 		RestAssured.baseURI = URL001;
@@ -31,28 +28,24 @@ public class SimP_GetRequest {
 		Logger.info("CLASSNAME = " + SimP_GetRequest.class.getSimpleName());
 		Logger.info("Step 001 ==> URL = " + URL001);
 	}
-
 	@Given("path is {string}")
 	public void path_is(String Path001) {
 		System.out.println("--------------------------------------------------------------");
 		Logger.info("Step 002 ==> PATH = " + Path001);
 		SubPath = Path001;
 	}
-
 	@Then("User sends a GET request")
 	public void user_sends_a_get_request() {
 		System.out.println("--------------------------------------------------------------");
 		Logger.info("Step 003 ==> GET REQUEST");
 		GetResponse = Request.get(SubPath);
 	}
-
 	@Then("prints response")
 	public void prints_response() {
 		System.out.println("--------------------------------------------------------------");
 		Logger.info("Step 004 ==> PRINT RESPONSE");
 		GetResponse.then().log().body();
 	}
-
 	@Then("status code is equal to {int}")
 	public void status_code_is_equal_to(Integer SC001) {
 		System.out.println("--------------------------------------------------------------");
